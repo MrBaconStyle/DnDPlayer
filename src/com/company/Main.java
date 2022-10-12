@@ -1,15 +1,17 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static Random random = new Random();
+    private static Player newPlayer = new Player();
 
     public static void main(String[] args) {
-
-        mainMenu();
+        //statsRollD6();
+        //mainMenu();
 
     }
 
@@ -30,9 +32,9 @@ public class Main {
                 case 1:
                     rollDiceMenu();
                     break;
-//                case 2:
-//                    modifyMyContact();
-//                    break;
+                case 2:
+                    createCharacterMenu();
+                    break;
 //                case 3:
 //                    removeMyContact();
 //                    break;
@@ -74,35 +76,42 @@ public class Main {
 
             switch (choice) {
                 case 0:
-                    printRollInstructions();
+                    printCharacterInstructions();
                     break;
                 case 1:
                     System.out.println("ROLLING D4....");
                     System.out.println("You've rolled: " + rollD4());
+                    System.out.println("=========================");
                     break;
                 case 2:
                     System.out.println("ROLLING D6....");
                     System.out.println("You've rolled: " + rollD6());
+                    System.out.println("=========================");
                     break;
                 case 3:
                     System.out.println("ROLLING D8....");
                     System.out.println("You've rolled: " + rollD8());
+                    System.out.println("=========================");
                     break;
                 case 4:
                     System.out.println("ROLLING D10....");
                     System.out.println("You've rolled: " + rollD10());
+                    System.out.println("=========================");
                     break;
                 case 5:
                     System.out.println("ROLLING PERCENT....");
                     System.out.println("You've rolled: " + rollPercent());
+                    System.out.println("=========================");
                     break;
                 case 6:
                     System.out.println("ROLLING D12....");
                     System.out.println("You've rolled: " + rollD12());
+                    System.out.println("=========================");
                     break;
                 case 7:
                     System.out.println("ROLLING D20....");
                     System.out.println("You've rolled: " + rollD20());
+                    System.out.println("=========================");
                     break;
                 case 8:
                     mainMenu();
@@ -129,6 +138,9 @@ public class Main {
     public static void createCharacterMenu() {
         boolean quit = false;
         int choice = 0;
+        System.out.println("Enter character name: ");
+        String name = scanner.nextLine();
+        newPlayer.setName(name);
         printCharacterInstructions();
 
         while (!quit) {
@@ -141,8 +153,19 @@ public class Main {
                     printCharacterInstructions();
                     break;
                 case 1:
-                    System.out.println("ROLLING D4....");
-                    System.out.println("You've rolled: " + rollD4());
+                    System.out.println("ROLLING STATS: ");
+                    newPlayer.setStr(statsRollD6());
+                    newPlayer.setDex(statsRollD6());
+                    newPlayer.setCons(statsRollD6());
+                    newPlayer.setIntel(statsRollD6());
+                    newPlayer.setWisd(statsRollD6());
+                    newPlayer.setCha(statsRollD6());
+                    System.out.println("STRENGTH: " + newPlayer.getStr());
+                    System.out.println("DEXTERITY: " + newPlayer.getDex());
+                    System.out.println("CONSTITUTION: " + newPlayer.getCons());
+                    System.out.println("INTELLIGENCE: " + newPlayer.getIntel());
+                    System.out.println("WISDOM: " + newPlayer.getWisd());
+                    System.out.println("CHARISMA: " + newPlayer.getCha());
                     break;
                 case 2:
                     System.out.println("ROLLING D6....");
@@ -179,9 +202,9 @@ public class Main {
         System.out.println("CHARACTER MENU: ");
         System.out.println("=========================");
         System.out.println("O - Print Character Instructions\n" +
-                "1 - Roll D4\n" +
-                "2 - Roll D6\n" +
-                "3 - Roll D8\n" +
+                "1 - Automatic roll all stats\n" +
+                "2 - Manual roll\n" +
+                "3 - Print character stats\n" +
                 "4 - Roll D10\n" +
                 "5 - Roll Percent\n" +
                 "6 - Roll D12\n" +
@@ -195,8 +218,7 @@ public class Main {
 
     }
 
-
-        public static int rollD4() {
+    public static int rollD4() {
         return random.nextInt(4) + 1;
     }
 
@@ -222,5 +244,26 @@ public class Main {
 
     public static int rollD20() {
         return random.nextInt(20) + 1;
+    }
+
+    public static int statsRollD6() {
+        int [] rolls = new int[4];
+        int temp;
+        for (int i=0; i<rolls.length; i++) {
+            rolls[i] = rollD6();
+            //System.out.println(rolls[i]); //ISPIS KOCKICE
+        }
+        for (int j =0; j<rolls.length; j++) {
+            for (int k=0; k<rolls.length-1; k++) {
+                if (rolls[k] > rolls[k+1]) {
+                    temp = rolls[k];
+                    rolls[k] = rolls[k+1];
+                    rolls[k+1] = temp;
+                }
+            }
+        }
+        //System.out.println(Arrays.toString(rolls)); //ISPIS NIZA
+        //System.out.println(rolls[1]+rolls[2]+rolls[3]); // ISPIS ZBIRA NAJVECA 3
+        return rolls[1]+rolls[2]+rolls[3];
     }
 }

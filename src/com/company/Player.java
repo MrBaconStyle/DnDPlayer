@@ -8,16 +8,8 @@ public class Player {
     private int intel;
     private int wisd;
     private int cha;
-
-    public Player() {
-        this.name = name;
-        this.str = str;
-        this.dex = dex;
-        this.cons = cons;
-        this.intel = intel;
-        this.wisd = wisd;
-        this.cha = cha;
-    }
+    private int hp;
+    private int constMod;
 
     public String getName() {
         return name;
@@ -45,5 +37,33 @@ public class Player {
 
     public int getCha() {
         return cha;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStr(int str) {
+        this.str = str;
+    }
+
+    public void setDex(int dex) {
+        this.dex = dex;
+    }
+
+    public void setCons(int cons) {
+        this.cons = cons;
+    }
+
+    public void setIntel(int intel) {
+        this.intel = intel;
+    }
+
+    public void setWisd(int wisd) {
+        this.wisd = wisd;
+    }
+
+    public void setCha(int cha) {
+        this.cha = cha;
     }
 }
